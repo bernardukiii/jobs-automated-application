@@ -20,10 +20,38 @@ def filter_text():
             keywords.append('next.js')
             keywords.append('next js')
             print("Keywords: ", keywords)
+        elif user_input == 'next js':
+            keywords.append(user_input)
+            keywords.append('next.js')
+            keywords.append('nextjs')
+            print("Keywords: ", keywords)
+        elif user_input == 'next.js':
+            keywords.append(user_input)
+            keywords.append('nextjs')
+            keywords.append('next js')
+            print("Keywords: ", keywords)
         elif user_input == 'react':
             keywords.append(user_input)
             keywords.append('react.js')
             keywords.append('react js')
+            print("Keywords: ", keywords)
+        elif user_input == 'reactjs':
+            keywords.append(user_input)
+            keywords.append('react.js')
+            keywords.append('react js')
+            keywords.append('react')
+            print("Keywords: ", keywords)
+        elif user_input == 'react.js':
+            keywords.append(user_input)
+            keywords.append('reactjs')
+            keywords.append('react js')
+            keywords.append('react')
+            print("Keywords: ", keywords)
+        elif user_input == 'react js':
+            keywords.append(user_input)
+            keywords.append('reactjs')
+            keywords.append('react.js')
+            keywords.append('react')
             print("Keywords: ", keywords)
         elif user_input == 'tailwind':
             keywords.append(user_input)
