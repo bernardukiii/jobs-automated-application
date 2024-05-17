@@ -13,7 +13,7 @@ def filter_text():
     while True:
         user_input = input("Next word: ").lower()
         
-        if user_input == 'exit':
+        if user_input == 'done':
             break
         elif user_input == 'nextjs':
             keywords.append(user_input)
@@ -67,11 +67,11 @@ def filter_text():
             print("Keywords: ", keywords)
     
 # PROMPT FOR THE DESCRIPTION USER WOULD LIKE TO FILTER THROUGH
-    print("Please enter the job description (copy/paste allowed). Type 'end' on a new line to finish:")
+    print("Please enter the job description (copy/paste allowed).")
     # handle long descriptions as they have line spaces that cause the terminal to break out of app
     while True:
         line = input()
-        if line.strip().lower() == 'end':
+        if line.strip().lower() == 'done':
             break
         job_description_lines.append(line)
     
