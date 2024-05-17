@@ -28,7 +28,11 @@ elif requested_tool == 'fa':
     print("Let's start by providing the information for me to prefill the form with: ")
     
     for field in user_info:
-        field = input(f"Please enter your {field}:")
+        field = input(f"Please enter your {field}: ")
+        if field == '':
+            print('Sorry, this field is required...')
+            field = input(f"Please enter your {field}: ")
+
     print(user_info)
 
     # prefill_form('https://lapaginamillonaria.com/')
