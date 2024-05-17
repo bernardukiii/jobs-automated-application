@@ -7,6 +7,7 @@ def filter_text():
     job_description_lines = []
     lowered_job_description = []
     matched_words = []
+    matching_percentage = 0
 
     print('Enter keywords one at a time')
 
@@ -89,7 +90,10 @@ def filter_text():
     for keyword in keywords:
         if keyword in lowered_job_description:
             matched_words.append(keyword)
-    
+    # calculate matching percentage
+    matching_percentage = (len(matched_words) / len(keywords)) * 100
+    print('Your search matches', matching_percentage, '%')
     print('FOUND: ', matched_words)
+
             
 
