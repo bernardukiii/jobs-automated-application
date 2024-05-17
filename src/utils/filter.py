@@ -1,8 +1,12 @@
 import string
 
 def filter_text():
-    # PROMPT USER FOR KEYWORDS USER WOULD LIKE TO USE TO FILTER
+# PROMPT USER FOR KEYWORDS USER WOULD LIKE TO USE TO FILTER
+    # variables
     keywords = []
+    job_description_lines = []
+    lowered_job_description = []
+    matched_words = []
 
     print('Enter keywords one at a time')
 
@@ -34,10 +38,7 @@ def filter_text():
             keywords.append(user_input)
             print("Keywords: ", keywords)
     
-    # PROMPT FOR THE DESCRIPTION USER WOULD LIKE TO FILTER THROUGH
-    job_description_lines = []
-    lowered_job_description = []
-
+# PROMPT FOR THE DESCRIPTION USER WOULD LIKE TO FILTER THROUGH
     print("Please enter the job description (copy/paste allowed). Type 'end' on a new line to finish:")
     # handle long descriptions as they have line spaces that cause the terminal to break out of app
     while True:
@@ -56,4 +57,11 @@ def filter_text():
         lowercase_word = word.lower()
         lowered_job_description.append(lowercase_word)
 
-    print('This should be a list of strings:', lowered_job_description)
+# FILTER TEXT
+    for keyword in keywords:
+        if keyword in lowered_job_description:
+            matched_words.append(keyword)
+    
+    print('FOUND: ', matched_words)
+            
+
