@@ -1,4 +1,5 @@
 import string
+from utils.clear_console import clear_console
 
 def filter_text():
 # PROMPT USER FOR KEYWORDS USER WOULD LIKE TO USE TO FILTER
@@ -92,8 +93,13 @@ def filter_text():
             matched_words.append(keyword)
     # calculate matching percentage
     matching_percentage = (len(matched_words) / len(keywords)) * 100
+    # clear console before showing results
+    clear_console()
+    # show results
     print('Your search matches', matching_percentage, '%')
-    print('FOUND: ', matched_words)
+    print('FOUND:')
+    for word in matched_words:
+        print('- ', word)
 
             
 
