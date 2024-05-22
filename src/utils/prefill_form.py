@@ -59,7 +59,31 @@ def prefill_form(user_info: dict):
         except TimeoutError:
             print("Could not fill in 'SURNAME'")
 
-    
+        # Try filling in the email
+        try:
+            page.get_by_placeholder("Email").click()
+            page.get_by_placeholder("Email").fill(user_info["email"])
+
+            if TimeoutError:
+                page.get_by_label("Email✱").click()
+                page.get_by_label("Email✱").fill(user_info["email"])
+            elif TimeoutError:
+                page.get_by_label("Email*").click()
+                page.get_by_label("Email*").fill(user_info["email"])
+            elif TimeoutError:
+                page.get_by_label("Email *").click()
+                page.get_by_label("Email *").fill(user_info["email"])
+            elif TimeoutError:
+                page.locator("[id=\"applicant_lead_attributes\\[email\\]\"]").click()
+                page.locator("[id=\"applicant_lead_attributes\\[email\\]\"]").fill(user_info["email"])
+            elif TimeoutError:
+                page.get_by_placeholder("hello@example.com...").click()
+                page.get_by_placeholder("hello@example.com...").fill(user_info["email"])
+            elif TimeoutError:
+                page.locator("input[name=\"personal_info\\.email\"]").click()
+                page.locator("input[name=\"personal_info\\.email\"]").fill(user_info["email"])
+        except TimeoutError:
+            print("Could not fill in 'EMAIL'")
  
 
         # # Close the browser after the test
