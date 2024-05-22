@@ -45,8 +45,6 @@ def prefill_form(user_info: dict):
         page.get_by_label("Last Name*").fill("ferr")
         page.get_by_label("Email*").click()
         page.get_by_label("Email*").fill("ema")
-        page.get_by_role("textbox", name="City*").fill("b")
-        page.get_by_role("textbox", name="City*").click()
         page.get_by_role("textbox", name="City*").fill("bsas")
         # Sample five
         page.locator("[id=\"applicant_lead_attributes\\[first_name\\]\"]").click()
@@ -94,7 +92,6 @@ def prefill_form(user_info: dict):
         page.frame_locator("iframe[title=\"Greenhouse Job Board\"]").get_by_label("Phone").click()
         page.frame_locator("iframe[title=\"Greenhouse Job Board\"]").get_by_label("LinkedIn Profile").click()
         page.frame_locator("iframe[title=\"Greenhouse Job Board\"]").get_by_label("Website").click()
-        page.frame_locator("iframe[title=\"Greenhouse Job Board\"]").get_by_label("LinkedIn Profile").click()
         page.frame_locator("iframe[title=\"Greenhouse Job Board\"]").get_by_label("LinkedIn Profile").fill("g")
         # Sample nine
         page.get_by_placeholder("Nombre").click()
@@ -107,7 +104,7 @@ def prefill_form(user_info: dict):
         page.get_by_placeholder("Teléfono").fill("123")
         page.get_by_placeholder("Perfil de Linkedin").click()
         page.get_by_placeholder("Perfil de Linkedin").fill("link")
-        # Sample 10
+        # Sample ten
         page.get_by_placeholder("First Name").click()
         page.get_by_placeholder("First Name").fill("dfg")
         page.get_by_placeholder("Last Name").click()
@@ -116,6 +113,7 @@ def prefill_form(user_info: dict):
         page.locator("input[name=\"personal_info\\.email\"]").fill("fg")
         page.locator("input[name=\"personal_info\\.linkedin_profile\"]").click()
         page.locator("input[name=\"personal_info\\.linkedin_profile\"]").fill("fg")
+
 
         # # Close the browser after the test
         # browser.close()
