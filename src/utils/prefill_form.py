@@ -102,7 +102,29 @@ def prefill_form(user_info: dict):
         except TimeoutError:
             print("Could not fill in 'PHONE NUMBER'")
 
+        # Try filling in the Linkedin url
+        try:
+            page.get_by_label("LinkedIn URL").click()
+            page.get_by_label("LinkedIn URL").fill(user_info["linkedin"])
 
+            if TimeoutError:
+                page.get_by_label("LinkedIn").click()
+                page.get_by_label("LinkedIn").fill(user_info["linkedin"])
+            elif TimeoutError:
+                page.get_by_label("Linkedin").click()
+                page.get_by_label("Linkedin").fill(user_info["linkedin"])
+            elif TimeoutError:
+                page.get_by_label("LinkedIn Profile").click()
+                page.get_by_label("LinkedIn Profile").fill(user_info["linkedin"])
+            elif TimeoutError:
+                page.get_by_placeholder("Perfil de Linkedin").click()
+                page.get_by_placeholder("Perfil de Linkedin").fill(user_info["linkedin"])
+            elif TimeoutError:
+                page.locator("input[name=\"personal_info\\.linkedin_profile\"]").click()
+                page.locator("input[name=\"personal_info\\.linkedin_profile\"]").fill(user_info["linkedin"])
+        except TimeoutError:
+            print("Could not fill in 'EMAIL'")
+ 
 
 
 
