@@ -128,16 +128,38 @@ def prefill_form(user_info: dict):
         # Try filling in the Github url
         try:
             page.get_by_label("Github").click()
-            page.get_by_label("Github").fill("github")
+            page.get_by_label("Github").fill(user_info["github"])
 
             if TimeoutError:
                 page.get_by_label("Github URL").click()
-                page.get_by_label("Github URL").fill("github")
+                page.get_by_label("Github URL").fill(user_info["github"])
             elif TimeoutError:
                 page.get_by_label("Github Link").click()
-                page.get_by_label("Github Link").fill("github")
+                page.get_by_label("Github Link").fill(user_info["github"])
         except TimeoutError:
             print("Could not fill in 'EMAIL'")
+
+        # Try filling in the portfolio url
+        try:
+            page.get_by_label("Portfolio").click()
+            page.get_by_label("Portfolio").fill(user_info["portfolio"])
+
+            if TimeoutError:
+                page.get_by_label("Portfolio URL").click()
+                page.get_by_label("Portfolio URL").fill(user_info["portfolio"])
+            elif TimeoutError:
+                page.get_by_label("Portfolio Link").click()
+                page.get_by_label("Portfolio Link").fill(user_info["portfolio"])
+            elif TimeoutError:
+                page.get_by_label("Website").click()
+                page.get_by_label("Website").fill(user_info["portfolio"])
+            elif TimeoutError:
+                page.get_by_label("Other website").click()
+                page.get_by_label("Other website").fill(user_info["portfolio"])
+        except TimeoutError:
+            print("Could not fill in 'EMAIL'")
+
+
 
 
         # # Close the browser after the test
