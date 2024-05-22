@@ -125,7 +125,19 @@ def prefill_form(user_info: dict):
         except TimeoutError:
             print("Could not fill in 'EMAIL'")
  
+        # Try filling in the Github url
+        try:
+            page.get_by_label("Github").click()
+            page.get_by_label("Github").fill("github")
 
+            if TimeoutError:
+                page.get_by_label("Github URL").click()
+                page.get_by_label("Github URL").fill("github")
+            elif TimeoutError:
+                page.get_by_label("Github Link").click()
+                page.get_by_label("Github Link").fill("github")
+        except TimeoutError:
+            print("Could not fill in 'EMAIL'")
 
 
         # # Close the browser after the test
