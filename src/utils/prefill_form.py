@@ -85,6 +85,26 @@ def prefill_form(user_info: dict):
         except TimeoutError:
             print("Could not fill in 'EMAIL'")
  
+        # Try filling in the number
+        try:
+            page.get_by_label("Phone").click()
+            page.get_by_label("Phone").fill(user_info["number"])
+
+            if TimeoutError:
+                page.get_by_label("Phone ✱").click()
+                page.get_by_label("Phone ✱").fill(user_info["number"])
+            elif TimeoutError:
+                page.get_by_placeholder("Teléfono").click()
+                page.get_by_placeholder("Teléfono").fill(user_info["number"])
+            elif TimeoutError:
+                page.locator("[id=\"applicant_lead_attributes\\[phone\\]\"]").click()
+                page.locator("[id=\"applicant_lead_attributes\\[phone\\]\"]").fill(user_info["number"])  
+        except TimeoutError:
+            print("Could not fill in 'PHONE NUMBER'")
+
+
+
+
 
         # # Close the browser after the test
         # browser.close()
