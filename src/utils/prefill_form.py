@@ -158,9 +158,3 @@ def prefill_form(user_info: dict):
                 page.get_by_label("Other website").fill(user_info["portfolio"])
         except TimeoutError:
             print("Could not fill in 'EMAIL'")
-
-
-
-
-        # # Close the browser after the test
-        # browser.close()
