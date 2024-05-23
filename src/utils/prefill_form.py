@@ -1,6 +1,6 @@
 import re
 from playwright.sync_api import sync_playwright, Page
-
+from os import environ
 
 def prefill_form(user_info: dict):
     print('inside play', user_info)  
@@ -16,145 +16,88 @@ def prefill_form(user_info: dict):
 
 # As different forms have different ways of handling elements, this will try a few options but might not coincide and fail
 
-        # Try filling in the name
-        try:
-            page.get_by_label("Name").click()
-            page.get_by_label("Name").fill(user_info["name"])
+        def try_fill(methods):
+            for method in methods:
+                try:
+                    method()
+                    return
+                except TimeoutError:
+                    continue
+            print(f"Could not fill in '{methods[0].__name__}'")
 
-            if TimeoutError:
-                page.get_by_label("First Name*").click()
-                page.get_by_label("First Name*").fill(user_info["name"])
-            elif TimeoutError:
-                page.get_by_label("First Name *").click()
-                page.get_by_label("First Name *").fill(user_info["name"])
-            elif TimeoutError:
-                page.get_by_label("Full name✱").click()
-                page.get_by_label("Full name✱").fill(user_info["name"])
-            elif TimeoutError:
-                page.get_by_placeholder("Nombre").click()
-                page.get_by_placeholder("Nombre").fill(user_info["name"])
-            elif TimeoutError:
-                page.get_by_placeholder("First Name").click()
-                page.get_by_placeholder("First Name").fill(user_info["name"])    
-        except TimeoutError:
-            print("Could not fill in 'NAME'")
-        
-        # Try filling in the surname
-        try:
-            page.get_by_label("Last Name*").click()
-            page.get_by_label("Last Name*").fill(user_info["surname"])
+        # Methods for filling in the name
+        Name_Methods = [
+            lambda: page.get_by_label("Name").fill(user_info['name']),
+            lambda: page.get_by_label("First Name*").fill(user_info['name']),
+            lambda: page.get_by_label("First Name *").fill(user_info['name']),
+            lambda: page.get_by_label("Full name✱").fill(user_info['name']),
+            lambda: page.get_by_placeholder("Nombre").fill(user_info['name']),
+            lambda: page.get_by_placeholder("First Name").fill(user_info['name']),
+        ]
+        try_fill(Name_Methods)
 
-            if TimeoutError:
-                page.locator("[id=\"applicant_lead_attributes\\[last_name\\]\"]").click()
-                page.locator("[id=\"applicant_lead_attributes\\[last_name\\]\"]").fill(user_info["surname"])
-            elif TimeoutError:
-                page.get_by_label("Last Name *").click()
-                page.get_by_label("Last Name *").fill(user_info["surname"])
-            elif TimeoutError:
-                page.get_by_placeholder("Apellidos").click()
-                page.get_by_placeholder("Apellidos").fill(user_info["surname"])
-            elif TimeoutError:
-                page.get_by_placeholder("Last Name").click()
-                page.get_by_placeholder("Last Name").fill(user_info["surname"])
-        except TimeoutError:
-            print("Could not fill in 'SURNAME'")
+        # Methods for filling in the surname
+        Surname_Methods = [
+            lambda: page.get_by_label("Last Name*").fill(user_info['surname']),
+            lambda: page.locator("[id=\"applicant_lead_attributes\\[last_name\\]\"]").fill(user_info['surname']),
+            lambda: page.get_by_label("Last Name *").fill(user_info['surname']),
+            lambda: page.get_by_placeholder("Apellidos").fill(user_info['surname']),
+            lambda: page.get_by_placeholder("Last Name").fill(user_info['surname']),
+        ]
+        try_fill(Surname_Methods)
 
-        # Try filling in the email
-        try:
-            page.get_by_placeholder("Email").click()
-            page.get_by_placeholder("Email").fill(user_info["email"])
+        # Methods for filling in the email
+        Email_Methods = [
+            lambda: page.get_by_placeholder("Email").fill(user_info['email']),
+            lambda: page.get_by_label("Email✱").fill(user_info['email']),
+            lambda: page.get_by_label("Email*").fill(user_info['email']),
+            lambda: page.get_by_label("Email *").fill(user_info['email']),
+            lambda: page.locator("[id=\"applicant_lead_attributes\\[email\\]\"]").fill(user_info['email']),
+            lambda: page.get_by_placeholder("hello@example.com...").fill(user_info['email']),
+            lambda: page.locator("input[name=\"personal_info\\.email\"]").fill(user_info['email']),
+        ]
+        try_fill(Email_Methods)
 
-            if TimeoutError:
-                page.get_by_label("Email✱").click()
-                page.get_by_label("Email✱").fill(user_info["email"])
-            elif TimeoutError:
-                page.get_by_label("Email*").click()
-                page.get_by_label("Email*").fill(user_info["email"])
-            elif TimeoutError:
-                page.get_by_label("Email *").click()
-                page.get_by_label("Email *").fill(user_info["email"])
-            elif TimeoutError:
-                page.locator("[id=\"applicant_lead_attributes\\[email\\]\"]").click()
-                page.locator("[id=\"applicant_lead_attributes\\[email\\]\"]").fill(user_info["email"])
-            elif TimeoutError:
-                page.get_by_placeholder("hello@example.com...").click()
-                page.get_by_placeholder("hello@example.com...").fill(user_info["email"])
-            elif TimeoutError:
-                page.locator("input[name=\"personal_info\\.email\"]").click()
-                page.locator("input[name=\"personal_info\\.email\"]").fill(user_info["email"])
-        except TimeoutError:
-            print("Could not fill in 'EMAIL'")
- 
-        # Try filling in the number
-        try:
-            page.get_by_label("Phone").click()
-            page.get_by_label("Phone").fill(user_info["number"])
+        # Methods for filling in the phone number
+        Number_Methods = [
+            lambda: page.get_by_label("Phone").fill(user_info['number']),
+            lambda: page.get_by_label("Phone ✱").fill(user_info['number']),
+            lambda: page.get_by_placeholder("Teléfono").fill(user_info['number']),
+            lambda: page.locator("[id=\"applicant_lead_attributes\\[phone\\]\"]").fill(user_info['number']),
+        ]
+        try_fill(Number_Methods)
 
-            if TimeoutError:
-                page.get_by_label("Phone ✱").click()
-                page.get_by_label("Phone ✱").fill(user_info["number"])
-            elif TimeoutError:
-                page.get_by_placeholder("Teléfono").click()
-                page.get_by_placeholder("Teléfono").fill(user_info["number"])
-            elif TimeoutError:
-                page.locator("[id=\"applicant_lead_attributes\\[phone\\]\"]").click()
-                page.locator("[id=\"applicant_lead_attributes\\[phone\\]\"]").fill(user_info["number"])  
-        except TimeoutError:
-            print("Could not fill in 'PHONE NUMBER'")
+        # Methods for filling in the LinkedIn URL
+        LinkedIn_Methods = [
+            lambda: page.get_by_label("LinkedIn URL").fill(user_info['linkedin']),
+            lambda: page.get_by_label("LinkedIn").fill(user_info['linkedin']),
+            lambda: page.get_by_label("Linkedin").fill(user_info['linkedin']),
+            lambda: page.get_by_label("LinkedIn Profile").fill(user_info['linkedin']),
+            lambda: page.get_by_placeholder("Perfil de Linkedin").fill(user_info['linkedin']),
+            lambda: page.locator("input[name=\"personal_info\\.linkedin_profile\"]").fill(user_info['linkedin']),
+        ]
+        try_fill(LinkedIn_Methods)
 
-        # Try filling in the Linkedin url
-        try:
-            page.get_by_label("LinkedIn URL").click()
-            page.get_by_label("LinkedIn URL").fill(user_info["linkedin"])
+        # Methods for filling in the GitHub URL
+        GitHub_Methods = [
+            lambda: page.get_by_label("Github").fill(user_info['github']),
+            lambda: page.get_by_label("Github URL").fill(user_info['github']),
+            lambda: page.get_by_label("Github Link").fill(user_info['github']),
+        ]
+        try_fill(GitHub_Methods)
 
-            if TimeoutError:
-                page.get_by_label("LinkedIn").click()
-                page.get_by_label("LinkedIn").fill(user_info["linkedin"])
-            elif TimeoutError:
-                page.get_by_label("Linkedin").click()
-                page.get_by_label("Linkedin").fill(user_info["linkedin"])
-            elif TimeoutError:
-                page.get_by_label("LinkedIn Profile").click()
-                page.get_by_label("LinkedIn Profile").fill(user_info["linkedin"])
-            elif TimeoutError:
-                page.get_by_placeholder("Perfil de Linkedin").click()
-                page.get_by_placeholder("Perfil de Linkedin").fill(user_info["linkedin"])
-            elif TimeoutError:
-                page.locator("input[name=\"personal_info\\.linkedin_profile\"]").click()
-                page.locator("input[name=\"personal_info\\.linkedin_profile\"]").fill(user_info["linkedin"])
-        except TimeoutError:
-            print("Could not fill in 'EMAIL'")
- 
-        # Try filling in the Github url
-        try:
-            page.get_by_label("Github").click()
-            page.get_by_label("Github").fill(user_info["github"])
+        # Methods for filling in the portfolio URL
+        Portfolio_Methods = [
+            lambda: page.get_by_label("Portfolio").fill(user_info['portfolio']),
+            lambda: page.get_by_label("Portfolio URL").fill(user_info['portfolio']),
+            lambda: page.get_by_label("Portfolio Link").fill(user_info['portfolio']),
+            lambda: page.get_by_label("Website").fill(user_info['portfolio']),
+            lambda: page.get_by_label("Other website").fill(user_info['portfolio']),
+        ]
+        try_fill(Portfolio_Methods)
 
-            if TimeoutError:
-                page.get_by_label("Github URL").click()
-                page.get_by_label("Github URL").fill(user_info["github"])
-            elif TimeoutError:
-                page.get_by_label("Github Link").click()
-                page.get_by_label("Github Link").fill(user_info["github"])
-        except TimeoutError:
-            print("Could not fill in 'EMAIL'")
-
-        # Try filling in the portfolio url
-        try:
-            page.get_by_label("Portfolio").click()
-            page.get_by_label("Portfolio").fill(user_info["portfolio"])
-
-            if TimeoutError:
-                page.get_by_label("Portfolio URL").click()
-                page.get_by_label("Portfolio URL").fill(user_info["portfolio"])
-            elif TimeoutError:
-                page.get_by_label("Portfolio Link").click()
-                page.get_by_label("Portfolio Link").fill(user_info["portfolio"])
-            elif TimeoutError:
-                page.get_by_label("Website").click()
-                page.get_by_label("Website").fill(user_info["portfolio"])
-            elif TimeoutError:
-                page.get_by_label("Other website").click()
-                page.get_by_label("Other website").fill(user_info["portfolio"])
-        except TimeoutError:
-            print("Could not fill in 'EMAIL'")
+        # Methods for filling in the city
+        City_Methods = [
+            lambda: page.get_by_role("textbox", name="City*").fill(user_info['city']),
+        ]
+        try_fill(City_Methods)
