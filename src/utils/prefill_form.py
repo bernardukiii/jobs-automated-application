@@ -1,6 +1,5 @@
 import re
 from playwright.sync_api import sync_playwright, Page
-from os import environ
 
 def prefill_form(user_info: dict):
     print('inside play', user_info)  
