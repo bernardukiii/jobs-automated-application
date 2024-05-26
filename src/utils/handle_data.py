@@ -16,10 +16,10 @@ class HandleData:
         file_path = os.path.join(self.data_dir, f'{filename}.pickle')
 
         if os.path.exists(file_path):
-            with open(f'/data/{filename}.pickle', 'rb') as file:
+            with open(file_path, 'rb') as file:
                 existing_data = pickle.load(file)
                 print('This is your saved information:')
-                for field, value in existing_data:
+                for field, value in existing_data.items():
                     print(f"{field}: {value}")
         else:
             print('No preexisting information.')
@@ -33,5 +33,6 @@ class HandleData:
 
             with open(file_path, 'wb') as file:
                 pickle.dump(data, file)
+                print("Data saved.")
         else:
             print('No information provided.')

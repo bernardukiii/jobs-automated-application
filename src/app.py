@@ -28,11 +28,10 @@ elif requested_tool == 'fa':
             if field == '':
                 print('Sorry, this field is required...')
                 field = input(f"Please enter your {field}: ")
+
+        data_handler.save_data(user_info)
+        prefill_form(user_info)
     elif first_time == "n":
         search_by_name = input("Please enter your name: ").lower()
         if search_by_name != '':
-            data_handler.check_data(search_by_name)
-
-
-    prefill_form(user_info)
-    
+            data_handler.check_data(search_by_name)    
