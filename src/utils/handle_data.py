@@ -14,8 +14,8 @@ class HandleData:
             with open(f'/data/{filename}.pickle', 'rb') as file:
                 existing_data = pickle.load(file)
                 print('This is your saved information:')
-                for field in existing_data:
-                    print(field[field])
+                for field, value in existing_data:
+                    print(f"{field}: {value}")
         else:
             print('No preexisting information.')
 
