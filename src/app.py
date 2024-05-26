@@ -2,7 +2,7 @@ from utils.filter import filter_text
 from utils.prefill_form import prefill_form
 from utils.handle_data import HandleData
 
-fields = ["name", "surname", "email", "number", "linkedin", "github", "portfolio", "city", "formURL"] 
+fields = ["name", "surname", "email", "number", "linkedin", "github", "portfolio", "city"] 
 user_info = {}
 data_handler = HandleData()
 
@@ -29,8 +29,9 @@ elif requested_tool == 'fa':
                 print('Sorry, this field is required...')
                 field = input(f"Please enter your {field}: ")
 
+        formURL = input('Please enter the form URL/link: ')        
         data_handler.save_data(user_info)
-        prefill_form(user_info)
+        prefill_form(user_info, formURL)
     elif first_time == "n":
         search_by_name = input("Please enter your name: ").lower()
         if search_by_name != '':

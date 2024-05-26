@@ -1,7 +1,7 @@
 import re
 from playwright.sync_api import sync_playwright, Page
 
-def prefill_form(user_info: dict):
+def prefill_form(user_info: dict, formURL):
     print('inside play', user_info)  
     with sync_playwright() as p:
         # Launch Chromium browser with headless set to False
@@ -10,7 +10,7 @@ def prefill_form(user_info: dict):
         page = context.new_page()
 
         # Now navigate to the URL
-        page.goto(user_info["formURL"])
+        page.goto(formURL)
         
 
 # As different forms have different ways of handling elements, this will try a few options but might not coincide and fail
