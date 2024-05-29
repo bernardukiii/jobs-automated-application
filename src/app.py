@@ -35,7 +35,10 @@ elif requested_tool == 'fa':
     elif first_time == "n":
         search_by_name = input("Please enter your name: ").lower()
         if search_by_name != '':
-            data_handler.check_data(search_by_name)  
+            existing_data = data_handler.check_data(search_by_name)
+            print('This is your saved information:')
+            for field, value in existing_data.items():
+                print(f"\t{field.upper()}: {value}")
         else: 
             print("No name was provided.")  
         

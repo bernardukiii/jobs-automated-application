@@ -18,9 +18,6 @@ class HandleData:
         if os.path.exists(file_path):
             with open(file_path, 'rb') as file:
                 existing_data = pickle.load(file)
-                print('This is your saved information:')
-                for field, value in existing_data.items():
-                    print(f"\t{field.upper()}: {value}")
                 return existing_data
         else:
             print('No preexisting information.')
