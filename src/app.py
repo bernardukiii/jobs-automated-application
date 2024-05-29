@@ -35,9 +35,9 @@ elif requested_tool == 'fa':
     elif first_time == "n":
         search_by_name = input("Please enter your name: ").lower()
         if search_by_name != '':
-            existing_data = data_handler.check_data(search_by_name)    
+            data_handler.check_data(search_by_name)    
         
-        edit = input("Would you like to modify your information? (y/n)").lower()
+        edit = input("Would you like to modify your information? (y/n) ").lower()
         if edit == 'y':
             for field in fields:
                 user_info[field] = input(f"Please enter your {field}: ")
@@ -49,6 +49,6 @@ elif requested_tool == 'fa':
 
         elif edit == 'n':
             formURL = input('Please enter the form URL/link: ')
-            prefill_form(existing_data, formURL)
+            prefill_form(user_info, formURL)
 
 
