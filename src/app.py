@@ -35,7 +35,9 @@ elif requested_tool == 'fa':
     elif first_time == "n":
         search_by_name = input("Please enter your name: ").lower()
         if search_by_name != '':
-            data_handler.check_data(search_by_name)    
+            data_handler.check_data(search_by_name)  
+        else: 
+            print("No name was provided.")  
         
         edit = input("Would you like to modify your information? (y/n) ").lower()
         if edit == 'y':
