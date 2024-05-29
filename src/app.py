@@ -6,10 +6,10 @@ fields = ["name", "surname", "email", "number", "linkedin", "github", "portfolio
 user_info = {}
 data_handler = HandleData()
 
-print("Welcome to Jobs Automated")
-print("We provide jobs descriptions filtering to see if it matches what you're looking for and we take care of automating the application form with repetitive information.")
+print("Welcome to Jobs Automated \n")
+print("We provide jobs descriptions filtering to see if it matches what you're looking for and we take care of automating the application form with repetitive information. \n")
 print("Navigation commands:")
-print("'done' => breaks out of loops")
+print("'done' => breaks out of loops \n")
 
 requested_tool = input("Please select either filtering (DF) or automation (FA): ").lower()
 
