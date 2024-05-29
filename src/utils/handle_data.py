@@ -2,7 +2,7 @@ import pickle, os
 
 class HandleData:
     # Initializer #
-    data_dir = 'data'
+    data_dir = 'src/data'
 
     def __init__(self):
         # Ensure the data directory exists
