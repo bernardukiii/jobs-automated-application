@@ -21,6 +21,7 @@ class HandleData:
                 print('This is your saved information:')
                 for field, value in existing_data.items():
                     print(f"{field}: {value}")
+                return existing_data
         else:
             print('No preexisting information.')
 

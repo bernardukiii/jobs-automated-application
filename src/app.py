@@ -50,6 +50,7 @@ elif requested_tool == 'fa':
             prefill_form(user_info, formURL)
 
         elif edit == 'n':
+            user_info = data_handler.check_data(search_by_name)
             formURL = input('Please enter the form URL/link: ')
             prefill_form(user_info, formURL)
 
