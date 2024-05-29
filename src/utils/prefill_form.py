@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
+import sys
 
 def prefill_form(user_info: dict, formURL):
-    print('inside play', user_info)  
     with sync_playwright() as p:
         # Launch Chromium browser with headless set to False
         browser = p.chromium.launch(headless=False)
@@ -14,6 +14,7 @@ def prefill_form(user_info: dict, formURL):
                 page.goto(formURL)
             except Exception as e:
                 print('URL not found (404)')
+                sys.exit()
                 # print(f"Error details: {e}")
         
 
