@@ -1,5 +1,4 @@
-import re
-from playwright.sync_api import sync_playwright, Page
+from playwright.sync_api import sync_playwright
 
 def prefill_form(user_info: dict, formURL):
     print('inside play', user_info)  
