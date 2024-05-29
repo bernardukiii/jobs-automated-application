@@ -9,7 +9,12 @@ def prefill_form(user_info: dict, formURL):
         page = context.new_page()
 
         # Now navigate to the URL
-        page.goto(formURL)
+        if formURL != '':
+            try:
+                page.goto(formURL)
+            except Exception as e:
+                print('URL not found (404)')
+                # print(f"Error details: {e}")
         
 
 # As different forms have different ways of handling elements, this will try a few options but might not coincide and fail
