@@ -20,7 +20,7 @@ class HandleData:
                 existing_data = pickle.load(file)
                 print('This is your saved information:')
                 for field, value in existing_data.items():
-                    print(f"{field}: {value}")
+                    print(f"\t{field.upper()}: {value}")
                 return existing_data
         else:
             print('No preexisting information.')
