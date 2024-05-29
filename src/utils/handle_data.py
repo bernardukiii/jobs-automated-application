@@ -2,7 +2,7 @@ import pickle, os
 
 class HandleData:
     # Initializer #
-    data_dir = 'data'
+    data_dir = 'src/data'
 
     def __init__(self):
         # Ensure the data directory exists
@@ -18,9 +18,7 @@ class HandleData:
         if os.path.exists(file_path):
             with open(file_path, 'rb') as file:
                 existing_data = pickle.load(file)
-                print('This is your saved information:')
-                for field, value in existing_data.items():
-                    print(f"{field}: {value}")
+                return existing_data
         else:
             print('No preexisting information.')
 
